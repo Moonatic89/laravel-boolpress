@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -15,7 +15,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        //
+        $products = Product::all();
+        return view('admin.products.index', compact('products'));
     }
 
     /**
@@ -25,7 +26,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.products.create');
     }
 
     /**
@@ -36,7 +37,21 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        //Creates new instance
+        $product = new Product();
+        $product->title = $request->title;
+        $product->image = $request->image;
+        $product->size = $request->size;
+        $product->material = $request->material;
+        $product->price = $request->price;
+        $product->data = $request->data;
+        $product->description = $request->description;
+        $product->save();
+
+        // Redirect
+
+        return redirect()->route('admin.products.index');
     }
 
     /**
@@ -47,7 +62,7 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        return view('admin.products.show', compact('product'));
     }
 
     /**
@@ -58,7 +73,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.products.edit', compact('product'));
     }
 
     /**
@@ -70,7 +85,15 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'image' => 'nullable',
+            'size' => 'nullable',
+            'material' => 'nullable',
+            'price' => 'nullable',
+            'data' => 'nullable',
+            'description' => 'nullable'
+        ]);
     }
 
     /**
@@ -81,6 +104,7 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('admin.products.index') - with('msg', 'Product Erased');
     }
 }
