@@ -26,9 +26,19 @@
             <td>{{$product->size}}</td>
             <td>€{{$product->price}}</td>
             <td>
-                <i class="fa fa-eye" aria-hidden="true"></i>
-                <i class="fas fa-pencil-alt    "></i>
-                <i class="fa fa-trash" aria-hidden="true"></i>
+
+                <a class="btn btn-primary" href="{{route('admin.products.show', $product->id)}}">
+                    <i class="fa fa-eye" aria-hidden="true"></i>
+                </a>
+                <a class="btn btn-primary" href="#">
+                    <i class="fas fa-pencil-alt    "></i>
+
+                </a>
+                <a class="btn btn-primary" href="#">
+                    <i class="fa fa-trash" aria-hidden="true"></i>
+                </a>
+
+
 
 
             </td>
