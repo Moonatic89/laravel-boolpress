@@ -2,13 +2,13 @@
       <div class="position-sticky pt-3">
           <ul class="nav flex-column">
               <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="#">
+                  <a class="nav-link active" aria-current="page" href="{{route('admin.home')}}">
                       <span data-feather="home"></span>
                       Dashboard
                   </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link disabled" href="#" aria-disabled="true">
+                  <a class="nav-link" href="#">
                       <span data-feather="file"></span>
                       Orders
                   </a>

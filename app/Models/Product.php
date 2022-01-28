@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    // UPDATE MODEL PATH
+    protected $fillable = ['title', 'description', 'image', 'price', 'size', 'date', 'material'];
 }

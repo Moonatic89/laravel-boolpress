@@ -85,6 +85,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
+        //ddd($request);
         $validated = $request->validate([
             'title' => 'required',
             'image' => 'nullable',
@@ -94,6 +95,10 @@ class ProductController extends Controller
             'data' => 'nullable',
             'description' => 'nullable'
         ]);
+
+        $product->update($validated);
+
+        return redirect()->route('admin.products.index')->with('msg', "Product");
     }
 
     /**
