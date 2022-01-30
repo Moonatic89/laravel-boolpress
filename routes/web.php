@@ -22,6 +22,8 @@ Route::resource('products', ProductController::class)->only([
     'index', 'show'
 ]);
 
+Route::get('categories/{category_id}/posts', 'CategoryController@posts')->name('categories.posts');
+
 
 
 
@@ -34,4 +36,5 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
 
     Route::resource('products', ProductController::class);
     Route::resource('posts', PostController::class);
+    Route::resource('categories', CategoryController::class);
 });

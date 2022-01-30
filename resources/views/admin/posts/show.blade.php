@@ -6,21 +6,26 @@
 
 
     <div class="card mt-3" style="width: 500px;">
-        <img src="{{$product->image}}" class="card-img-top" alt="{{$product->title}}">
+        <img src="{{$post->image}}" class="card-img-top" alt="{{$post->title}}">
         <div class="card-body">
 
             <div class="firstRow d-flex justify-content-between">
-                <h5 class="card-title">{{$product->title}}</h5>
-                <h5 class="card-title">{{$product->size}}</h5>
-                <h5 class="card-title">€{{$product->price}}</h5>
+                <h5 class="card-title">{{$post->title}}</h5>
+                <h5 class="card-title">
+                    <i class="fas fa-thumbs-up"></i> {{$post->likes}}
+                </h5>
             </div>
-            <p class="card-text">{{$product->description}}</p>
+            <p class="card-text">{{$post->text}}</p>
 
-            <a class="btn btn-primary" href="{{route('admin.products.index', $product->id)}}">
+            <em>Category: {{ $post->category ? $post->category->name : 'Uncategorized'}}</em>
+
+
+
+            <a class="btn btn-primary" href="{{route('admin.posts.index', $post->id)}}">
                 <i class="fas fa-hand-point-left"></i>
             </a>
 
-            <a class="btn btn-primary" href="{{route('admin.products.edit', $product->id)}}">
+            <a class="btn btn-primary" href="{{route('admin.posts.edit', $post->id)}}">
                 <i class="fas fa-pencil-alt    "></i>
             </a>
 

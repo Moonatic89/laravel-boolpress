@@ -5,12 +5,12 @@
 
 <div class="container">
 
-    <h1>Edit your Product</h1>
+    <h1>Edit your Post</h1>
 
     @include('partials.system.errors')
 
-
-    <form action="{{route('admin.products.update', $product->id)}}" method="post">
+    <!-- MAIN -->
+    <form action="{{route('admin.posts.update', $post->id)}}" method="post">
         @csrf
         @method('PUT')
 
@@ -19,7 +19,7 @@
         <div class="mb-3">
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title"
-                aria-describedby="helpId" value="{{$product->title}}" placeholder="Type here your new Title">
+                aria-describedby="helpId" value="{{$post->title}}" placeholder="Type here your new Title">
             <small id="titleHelper" class="form-text text-muted">Type a title for this item.</small>
             @error('title')
             <div class="alert alert-danger">{{$msg}}</div>
@@ -30,66 +30,41 @@
         <div class="mb-3">
             <label for="image" class="form-label">Image</label>
             <input type="text" class="form-control @error('image') is-invalid @enderror" name="image" id="image"
-                aria-describedby="helpId" value="{{$product->image}}" placeholder="Type here your new image path">
+                aria-describedby="helpId" value="{{$post->image}}" placeholder="Type here your new image path">
             <small id="imageHelper" class="form-text text-muted">Type a image path for this item.</small>
             @error('image')
             <div class="alert alert-danger">{{$msg}}</div>
             @enderror
         </div>
 
-        <!-- SIZE -->
+        <!-- TEXT -->
         <div class="mb-3">
-            <label for="size" class="form-label">Size</label>
-            <input type="text" class="form-control @error('size') is-invalid @enderror" name="size" id="size"
-                aria-describedby="helpId" value="{{$product->size}}" placeholder="Type here your product size">
-            <small id="sizeHelper" class="form-text text-muted">Type a size for this item.</small>
-            @error('size')
-            <div class="alert alert-danger">{{$msg}}</div>
-            @enderror
-        </div>
-
-        <!-- Price -->
-        <div class="mb-3">
-            <label for="price" class="form-label">Price</label>
-            <input type="text" class="form-control @error('price') is-invalid @enderror" name="price" id="price"
-                aria-describedby="helpId" value="{{$product->price}}" placeholder="Type here your product price">
-            <small id="priceHelper" class="form-text text-muted">Type a price for this item.</small>
-            @error('price')
-            <div class="alert alert-danger">{{$msg}}</div>
-            @enderror
-        </div>
-
-        <!-- Date -->
-        <div class="mb-3">
-            <label for="size" class="form-label">date</label>
-            <input type="date" class="form-control @error('date') is-invalid @enderror" name="date" id="date"
-                aria-describedby="helpId" value="{{$product->date}}" placeholder="Type here your product date">
-            <small id="dateHelper" class="form-text text-muted">Type a date for this item.</small>
-            @error('date')
-            <div class="alert alert-danger">{{$msg}}</div>
-            @enderror
-        </div>
-
-        <!-- DESCRIPTION -->
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control @error('description') is-invalid @enderror" name="description"
-                id="description" rows="3">
-            {{$product->description}}
+            <label for="text" class="form-label">text</label>
+            <textarea class="form-control @error('text') is-invalid @enderror" name="text" id="text" rows="3">
+            {{$post->text}}
             </textarea>
-            @error('description')
+            @error('text')
             <div class="alert alert-danger">{{$msg}}</div>
             @enderror
         </div>
+
+        <!-- Category -->
+        <div class="form-group">
+            <label for="category_id">Categories</label>
+            <select class="form-control" name="category_id" id="category_id">
+                <option value="">Select a category</option>
+                @foreach($categories as $category)
+                <option value="{{$category->id}}"
+                    {{$category->id == old('category', $post->category_id) ? 'selected' : ''}}>{{$category->name}}
+                </option>
+                @endforeach
+            </select>
+        </div>
+
+
 
 
         <button type="submit" class="btn btn-success">Update</button>
-
-        <!-- <img src="{{$product->image}}" alt="{{$product->title}}" width="100"> -->
-
-
-
-
 
     </form>
 </div>

@@ -20,9 +20,9 @@
                   </a>
               </li>
               <li class="nav-item">
-                  <a class="nav-link disabled" href="#" aria-disabled="true">
+                  <a class="nav-link" href="{{route('admin.categories.index')}}">
                       <span data-feather="users"></span>
-                      Customers
+                      Categories
                   </a>
               </li>
               <li class="nav-item disabled">

@@ -15,8 +15,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $category = Category::All();
-        return view('admin.category.index', compact('category'));
+        $categories = Category::All();
+        return view('admin.categories.index', compact('categories'));
     }
 
     /**
@@ -84,5 +84,11 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         //
+    }
+
+    public function posts(Category $category)
+    {
+        $post = $category->posts()->paginate(10);
+        return view('guest.categories.posts', compact('posts', 'category'));
     }
 }

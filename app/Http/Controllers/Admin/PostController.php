@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -39,13 +40,17 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $post = new Post();
-        $post->title = $request->title;
-        $post->image = $request->image;
-        $post->likes = $request->likes;
-        $post->text = $request->text;
-        $post->save();
 
+        $validated = $request->validate([
+            'title' => ['required', 'unique:posts', 'max:200'],
+            'image' => ['nullable'],
+            'text' => ['nullable'],
+            'category_id' => ['nullable', 'exists:categories,id'],
+        ]);
+
+        $validated['user_id'] = Auth::id();
+
+        Post::create($validated);
         return redirect()->route('admin.posts.index');
     }
 
@@ -68,7 +73,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+        $categories = Category::all();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -80,7 +86,16 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required',
+            'image' => 'nullable',
+            'text' => 'nullable',
+            'category_id' => 'nullable | exists:categories,id',
+        ]);
+
+        $post->update($validated);
+
+        return redirect()->route('admin.posts.index')->with('msg', "Post");
     }
 
     /**
