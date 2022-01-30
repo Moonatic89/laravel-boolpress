@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
-use Illuminate\Support\Facades\Auth;
+use App\User;
+use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -17,7 +19,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Auth::user()->posts()->orderByDesc('id')->paginate(10);
         return view('admin.posts.index', compact('posts'));
     }
 
@@ -74,6 +76,14 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+
+        if (Auth::id() === $post->user_id) {
+            return view('admin.posts.edit', compact('post', 'categories'));
+        } else {
+            abort(403);
+        }
+
+
         return view('admin.posts.edit', compact('post', 'categories'));
     }
 
@@ -86,16 +96,21 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        $validated = $request->validate([
-            'title' => 'required',
-            'image' => 'nullable',
-            'text' => 'nullable',
-            'category_id' => 'nullable | exists:categories,id',
-        ]);
+        if (Auth::id() === $post->user_id) {
+            $validated = $request->validate([
+                'title' => ['required', Rule::unique('posts')->ignore($post->id), 'max:200'],
+                'image' => 'nullable',
+                'text' => 'nullable',
+                'category_id' => 'nullable | exists:categories,id',
+            ]);
 
-        $post->update($validated);
+            $validated['user_id'] = Auth::id();
+            $post->update($validated);
 
-        return redirect()->route('admin.posts.index')->with('msg', "Post");
+            return redirect()->route('admin.posts.index')->with('msg', "Post");
+        } else {
+            abort(403);
+        }
     }
 
     /**
@@ -104,8 +119,16 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
+
     public function destroy(Post $post)
     {
-        //
+        if (Auth::id() === $post->user_id) {
+
+            $title = $post->title;
+            $post->delete();
+            return redirect()->back()->with('message', "Success! Post $title Deleted ");
+        } else {
+            abort(403);
+        }
     }
 }
