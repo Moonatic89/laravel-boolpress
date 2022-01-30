@@ -7,30 +7,32 @@
     <thead>
         <tr>
             <th>Title</th>
-            <th>Thumbnail</th>
-            <th>Size</th>
-            <th>Price</th>
+            <th>Category</th>
+            <th>Likes</th>
+            <th>Text</th>
             <th>Actions</th>
 
         </tr>
     </thead>
 
-    @foreach($products as $product)
+    @foreach($posts as $post)
     <tbody>
         <tr>
-            <td scope="row">{{$product->title}}</td>
+            <td scope="row">{{$post->title}}</td>
             <td>
-                <img src="{{$product->image}}" class="card-img-top" alt="{{$product->title}}" style="width: 150px; height: 50px; ">
-                <!-- <img src="{{$product->image}}" alt="{{$product->title}}" width="100"> -->
+                <!-- {{$post->category}} -->
+                <!-- <img src="{{$post->image}}" class="card-img-top" alt="{{$post->title}}" -->
+                <!-- style="width: 150px; height: 50px; "> -->
+                <!-- <img src="{{$post->image}}" alt="{{$post->title}}" width="100"> -->
             </td>
-            <td>{{$product->size}}</td>
-            <td>€{{$product->price}}</td>
+            <td>{{$post->likes}}</td>
+            <td>€{{$post->text}}</td>
             <td>
 
-                <a class="btn btn-primary" href="{{route('admin.products.show', $product->id)}}">
+                <a class="btn btn-primary" href="{{route('admin.posts.show', $post->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
-                <a class="btn btn-primary" href="{{route('admin.products.edit', $product->id)}}">
+                <a class="btn btn-primary" href="{{route('admin.posts.edit', $post->id)}}">
                     <i class="fas fa-pencil-alt    "></i>
 
                 </a>

@@ -1,7 +1,7 @@
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
         <div class="container">
             @auth
-            <div class="name text-white">Hi {{ Auth::user()->name }}</div>
+            <div class="name text-white text-center">Hi {{ Auth::user()->name }}</div>
             <div class="logout text-white">
                 <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault();
             document.getElementById('logout-form').submit();">
