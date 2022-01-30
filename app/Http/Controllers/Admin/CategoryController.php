@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -37,8 +38,16 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $category = new Category();
-        $category->save();
+
+        $validated = $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+
+        $validated['slug'] = Str::slug($request->name);
+
+        Category::create($validated);
+
+        return redirect()->route('admin.categories.index');
     }
 
     /**
@@ -83,7 +92,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect()->back()->with('msg', 'Category deleted');
     }
 
     public function posts(Category $category)

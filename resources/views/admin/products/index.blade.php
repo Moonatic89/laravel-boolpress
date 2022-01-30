@@ -31,6 +31,7 @@
                 <a class="btn btn-primary" href="{{route('admin.products.show', $product->id)}}">
                     <i class="fa fa-eye" aria-hidden="true"></i>
                 </a>
+
                 <a class="btn btn-primary" href="{{route('admin.products.edit', $product->id)}}">
                     <i class="fas fa-pencil-alt    "></i>
 

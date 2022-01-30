@@ -21,15 +21,6 @@
             <td scope="row">{{$post->title}}</td>
             <td>
                 {{ $post->category ? $post->category->name : 'Uncategorized'}}
-
-
-
-
-
-                <!-- {{$post->category}} -->
-                <!-- <img src="{{$post->image}}" class="card-img-top" alt="{{$post->title}}" -->
-                <!-- style="width: 150px; height: 50px; "> -->
-                <!-- <img src="{{$post->image}}" alt="{{$post->title}}" width="100"> -->
             </td>
             <td>{{$post->likes}}</td>
             <td>€{{$post->text}}</td>
