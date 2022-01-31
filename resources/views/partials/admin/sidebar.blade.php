@@ -25,10 +25,10 @@
                       Categories
                   </a>
               </li>
-              <li class="nav-item disabled">
-                  <a class="nav-link" href="#" aria-disabled="true">
+              <li class="nav-item">
+                  <a class="nav-link" href="{{route('admin.tags.index')}}">
                       <span data-feather="bar-chart-2"></span>
-                      Reports
+                      Tags
                   </a>
               </li>
               <li class="nav-item disabled">
