@@ -4,6 +4,14 @@
 
 
 <table class="table">
+    <div class="title d-flex mt-3 align-items-center">
+        <h1>Every Post</h1>
+        <a name="" id="" class="ms-5 btn btn-primary text-light" href="{{route('admin.posts.create')}}"
+            role="button">Create Post</a>
+
+
+    </div>
+
     <thead>
         <tr>
             <th>Title</th>

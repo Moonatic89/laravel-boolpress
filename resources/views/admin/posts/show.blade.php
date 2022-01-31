@@ -9,6 +9,7 @@
 
         IMAGE HERE BUT IS SLOW
         <!-- <img src="{{$post->image}}" class="card-img-top" alt="{{$post->title}}"> -->
+        <img src="{{asset('storage/' . $post->image)}}" class="card-img-top" alt="{{$post->title}}">
         <div class="card-body">
 
             <div class="firstRow d-flex justify-content-between">

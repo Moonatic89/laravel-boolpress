@@ -28,13 +28,26 @@
 
         <!-- THUMBNAIL -->
         <div class="mb-3">
-            <label for="image" class="form-label">Image</label>
-            <input type="text" class="form-control @error('image') is-invalid @enderror" name="image" id="image"
-                aria-describedby="helpId" value="{{$post->image}}" placeholder="Type here your new image path">
-            <small id="imageHelper" class="form-text text-muted">Type a image path for this item.</small>
-            @error('image')
-            <div class="alert alert-danger">{{$msg}}</div>
-            @enderror
+
+            <div class="row">
+
+                <div class="col">
+                    <img src="{{asset('storage/' . $post->image)}}" class="card-img-top" alt="{{$post->title}}">
+                </div>
+                <div class="col">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image" id="image"
+                        aria-describedby="helpId" placeholder="Type here your new image path">
+                    <small id="imageHelper" class="form-text text-muted">Type a image path for this item.</small>
+                    @error('image')
+                    <div class="alert alert-danger">{{$msg}}</div>
+                    @enderror
+                </div>
+            </div>
+
+
+
+
         </div>
 
         <!-- TEXT -->

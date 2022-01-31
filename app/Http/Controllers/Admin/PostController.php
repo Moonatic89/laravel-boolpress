@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
@@ -31,6 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
+        
         $categories = Category::all();
         $tags = Tag::all();
 
@@ -46,13 +48,27 @@ class PostController extends Controller
     public function store(Request $request)
     {
 
+        ddd($request);
+        
         $validated = $request->validate([
             'title' => ['required', 'unique:posts', 'max:200'],
-            'image' => ['nullable'],
+            'image' => ['nullable', 'image', 'max:100'],
             'text' => ['nullable'],
             'category_id' => ['nullable', 'exists:categories,id'],
             'tags' => 'exists:tags,id'
         ]);
+
+
+        // protction from image not uploaded
+        if($request->file('image')){
+            // validate Image
+            
+            // $image_path = Storage::put('post_images', $request->file('image'));
+
+            $image_path=$request->file('image')->store('post_images');
+            $validated['image'] = $image_path;
+        }
+
 
         $validated['user_id'] = Auth::id();
 

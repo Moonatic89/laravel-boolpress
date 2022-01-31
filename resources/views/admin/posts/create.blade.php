@@ -8,7 +8,7 @@
     <h1>Add a new Post</h1>
 
     <!-- Call route -->
-    <form action="{{route('admin.posts.store')}}" method="post">
+    <form action="{{route('admin.posts.store')}}" method="post" enctype="multipart/formadata">
         @csrf
 
         <!-- TITLE -->
@@ -22,8 +22,8 @@
         <!-- IMAGE -->
         <div class="mb-3">
             <label for="image" class="form-label">Post Image</label>
-            <input type="text" name="image" id="image" class="form-control" placeholder="Insert here image Url"
-                aria-describedby="titleHelper" required>
+            <input type="file" name="image" id="image" class="form-control" placeholder="Insert here image Url"
+                aria-describedby="titleHelper" required acceot=".jpg, .png">
             <small id="titleHelper" class="text-muted">Here goes new Post url.</small>
         </div>
 
@@ -56,7 +56,7 @@
             </select>
         </div>
         @error('tags')
-        <div class="alert alert-danger">{{ $message }}</div>
+        <div class="alert alert-danger">{{ $msg }}</div>
         @enderror
 
 
