@@ -14,7 +14,8 @@ class TagsController extends Controller
      */
     public function index()
     {
-        //
+        $tags = Tag::All();
+        return view('admin.tags.index', compact('tags'));
     }
 
     /**
@@ -22,9 +23,10 @@ class TagsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
+        return view('admin.tags.create');
     }
 
     /**
@@ -35,7 +37,14 @@ class TagsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $validated = $request->validate([
+            'name' => 'required|unique:categories'
+        ]);
+
+        Tag::create($validated);
+
+        return redirect()->route('admin.tags.index');
     }
 
     /**
@@ -80,6 +89,7 @@ class TagsController extends Controller
      */
     public function destroy(Tag $tags)
     {
-        //
+        $tags->delete();
+        return redirect()->back()->with('msg', 'Tag deleted');
     }
 }

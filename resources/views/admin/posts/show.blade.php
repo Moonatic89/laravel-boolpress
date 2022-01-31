@@ -25,22 +25,20 @@
                 tags:
                 @if(count($post->tags) > 0)
                 @foreach($post->tags as $tag)
-                {{$tag->name}}
+                <span class="badge rounded-pill bg-primary text-dark">
+                    {{$tag->name}}
+                </span>
                 @endforeach
                 @else
                 <span>No tags</span>
 
                 @endif
-
             </div>
-
-
-
-            <a class="btn btn-primary" href="{{route('admin.posts.index', $post->id)}}">
+            <a class="btn btn-primary mt-3" href="{{route('admin.posts.index', $post->id)}}">
                 <i class="fas fa-hand-point-left"></i>
             </a>
 
-            <a class="btn btn-primary" href="{{route('admin.posts.edit', $post->id)}}">
+            <a class="btn btn-primary mt-3" href="{{route('admin.posts.edit', $post->id)}}">
                 <i class="fas fa-pencil-alt    "></i>
             </a>
 

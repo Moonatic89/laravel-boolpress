@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use App\Models\Category;
+use App\Models\Tag;
 use App\User;
 use Illuminate\Contracts\Validation\Rule;
 use Illuminate\Http\Request;
@@ -81,9 +82,10 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         $categories = Category::all();
+        $tags = Tag::all();
 
         if (Auth::id() === $post->user_id) {
-            return view('admin.posts.edit', compact('post', 'categories'));
+            return view('admin.posts.edit', compact('post', 'categories', 'tags'));
         } else {
             abort(403);
         }
@@ -103,15 +105,18 @@ class PostController extends Controller
     {
         if (Auth::id() === $post->user_id) {
             $validated = $request->validate([
-                'title' => ['required', Rule::unique('posts')->ignore($post->id), 'max:200'],
+                'title' => ['required', 'max:200'],
                 'image' => 'nullable',
                 'text' => 'nullable',
                 'category_id' => 'nullable | exists:categories,id',
+                'tags' => 'nullable | exists:tags,id'
+
             ]);
 
             $validated['user_id'] = Auth::id();
             $post->update($validated);
 
+            $post->tags()->sync($request->tags);
             return redirect()->route('admin.posts.index')->with('msg', "Post");
         } else {
             abort(403);
