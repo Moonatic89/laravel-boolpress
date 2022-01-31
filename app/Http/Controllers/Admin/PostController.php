@@ -31,7 +31,9 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::all();
-        return view('admin.posts.create', compact('categories'));
+        $tags = Tag::all();
+
+        return view('admin.posts.create', compact('categories', 'tags'));
     }
 
     /**
@@ -48,12 +50,15 @@ class PostController extends Controller
             'image' => ['nullable'],
             'text' => ['nullable'],
             'category_id' => ['nullable', 'exists:categories,id'],
+            'tags' => 'exists:tags,id'
         ]);
 
         $validated['user_id'] = Auth::id();
 
-        Post::create($validated);
-        return redirect()->route('admin.posts.index');
+        $_post = Post::create($validated);
+        $_post->tags()->attach($request->tags);
+
+        return redirect()->route('admin.posts.show', $_post);
     }
 
     /**

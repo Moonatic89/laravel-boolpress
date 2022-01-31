@@ -33,7 +33,7 @@
             <textarea class="form-control" name="text" id="text" rows="3"></textarea>
         </div>
 
-        <!-- Category FK -->
+        <!-- Category -->
         <div class="form-group">
             <label for="category_id">Categories</label>
             <select class="form-control" name="category_id" id="category_id">
@@ -43,6 +43,21 @@
                 @endforeach
             </select>
         </div>
+
+        <!-- Tags -->
+        <div class="form-group">
+            <label for="tags">Tags</label>
+            <select multiple class="form-control" name="tags[]" id="tags">
+                @if($tags)
+                @foreach($tags as $tag)
+                <option value="{{$tag->id}}">{{$tag->name}}</option>
+                @endforeach
+                @endif
+            </select>
+        </div>
+        @error('tags')
+        <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
 
 

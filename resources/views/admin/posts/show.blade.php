@@ -21,6 +21,21 @@
 
             <em>Category: {{ $post->category ? $post->category->name : 'Uncategorized'}}</em>
 
+            <div class="tags">
+                tags:
+                @if(count($post->tags) > 0)
+                @foreach($post->tags as $tag)
+                {{$tag->name}}
+                @endforeach
+                @else
+                <span>No tags</span>
+
+                @endif
+
+            </div>
+
+
+
             <a class="btn btn-primary" href="{{route('admin.posts.index', $post->id)}}">
                 <i class="fas fa-hand-point-left"></i>
             </a>
