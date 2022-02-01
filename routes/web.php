@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,11 @@ Route::resource('products', ProductController::class)->only([
 
 Route::get('categories/{category_id}/posts', 'CategoryController@posts')->name('categories.posts');
 
+
+// CONTACTS SECTION
+
+Route::get('contacts', 'PageController@contacts')->name('contacts');
+Route::post('contacts', 'PageController@sendForm')->name('contacts.send');
 
 
 
