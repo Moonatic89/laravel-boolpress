@@ -18,8 +18,6 @@ class PageController extends Controller
     public function sendForm(Request $request)
     {
         //ddd($request->all());
-
-
         $valData = $request->validate(
             [
                 'name' => 'required',
