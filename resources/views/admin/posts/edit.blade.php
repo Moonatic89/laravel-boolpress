@@ -10,13 +10,14 @@
     @include('partials.system.errors')
 
     <!-- MAIN -->
-    <form action="{{route('admin.posts.update', $post->id)}}" method="post">
+    <form action="{{route('admin.posts.update', $post->id)}}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
 
         <!-- TITLE -->
         <div class="mb-3">
+
             <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control @error('title') is-invalid @enderror" name="title" id="title"
                 aria-describedby="helpId" value="{{$post->title}}" placeholder="Type here your new Title">
@@ -24,6 +25,7 @@
             @error('title')
             <div class="alert alert-danger">{{$msg}}</div>
             @enderror
+
         </div>
 
         <!-- THUMBNAIL -->
@@ -86,7 +88,7 @@
             </select>
         </div>
         @error('tags')
-        <div class="alert alert-danger">{{ $message }}</div>
+        <div class="alert alert-danger">{{ $msg }}</div>
         @enderror
 
 

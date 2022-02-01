@@ -32,7 +32,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        
+
         $categories = Category::all();
         $tags = Tag::all();
 
@@ -46,10 +46,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {  
+    {
 
         //ddd($request->all());
-          
+
         $validated = $request->validate([
             'title' => ['required', 'unique:posts', 'max:200'],
             'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:100'],
@@ -57,12 +57,16 @@ class PostController extends Controller
             'category_id' => ['nullable', 'exists:categories,id'],
             'tags' => ['exists:tags,id']
         ]);
-        
-        
-           // protction from image not uploaded
-        $img_path = Storage::put('post_images', $request->file('image'));
-   
-        ddd($img_path, $validated);
+
+
+        // protction from image not uploaded
+        if ($request->file('image')) {
+
+            $img_path = Storage::put('post_images', $request->file('image'));
+            $validated['image'] = $img_path;
+        }
+
+        //ddd($img_path, $validated);
 
         $validated['user_id'] = Auth::id();
 
@@ -116,12 +120,19 @@ class PostController extends Controller
         if (Auth::id() === $post->user_id) {
             $validated = $request->validate([
                 'title' => ['required', 'max:200'],
-                'image' => 'nullable',
+                'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:100'],
                 'text' => 'nullable',
                 'category_id' => 'nullable | exists:categories,id',
                 'tags' => 'nullable | exists:tags,id'
 
             ]);
+
+            if ($request->file('image')) {
+
+                Storage::delete($post->image);
+                $img_path = Storage::put('post_images', $request->file('image'));
+                $validated['image'] = $img_path;
+            }
 
             $validated['user_id'] = Auth::id();
             $post->update($validated);
@@ -146,7 +157,7 @@ class PostController extends Controller
 
             $title = $post->title;
             $post->delete();
-            return redirect()->back()->with('message', "Success! Post $title Deleted ");
+            return redirect()->back()->with('msg', "Success! Post Deleted ");
         } else {
             abort(403);
         }
