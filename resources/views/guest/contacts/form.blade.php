@@ -5,7 +5,11 @@
 
 <h1>CONTACTS </h1>
 
-<form action="#" method="post">
+@include('partials.system.errors')
+@include('partials.system.message')
+
+
+<form action="{{route('contacts.send')}}" method="post">
     @csrf
 
     <!-- NAME -->

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ContactFormMail;
 
 class PageController extends Controller
 {
@@ -11,5 +13,30 @@ class PageController extends Controller
     {
         return view('guest.contacts.form');
     }
-    //
+
+
+    public function sendForm(Request $request)
+    {
+        //ddd($request->all());
+
+
+        $valData = $request->validate(
+            [
+                'name' => 'required',
+                'email' => 'required|email',
+                'object' => 'required',
+                'body' => 'required'
+            ]
+        );
+
+        /*
+            This it to render a mail preview
+            return (new ContactFormMail($valData))->render();
+        */
+
+        Mail::to('admin@stefanonesi.com')
+            ->cc($valData['email'])
+            ->send(new ContactFormMail($valData));
+        return redirect()->back()->with('message', 'Message sent successfully');
+    }
 }
