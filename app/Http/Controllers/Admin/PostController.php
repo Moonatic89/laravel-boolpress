@@ -46,36 +46,30 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
+    {  
 
-        ddd($request);
-        
+        //ddd($request->all());
+          
         $validated = $request->validate([
             'title' => ['required', 'unique:posts', 'max:200'],
-            'image' => ['nullable', 'image', 'max:100'],
+            'image' => ['nullable', 'mimes:jpeg,jpg,png', 'max:100'],
             'text' => ['nullable'],
             'category_id' => ['nullable', 'exists:categories,id'],
-            'tags' => 'exists:tags,id'
+            'tags' => ['exists:tags,id']
         ]);
-
-
-        // protction from image not uploaded
-        if($request->file('image')){
-            // validate Image
-            
-            // $image_path = Storage::put('post_images', $request->file('image'));
-
-            $image_path=$request->file('image')->store('post_images');
-            $validated['image'] = $image_path;
-        }
-
+        
+        
+           // protction from image not uploaded
+        $img_path = Storage::put('post_images', $request->file('image'));
+   
+        ddd($img_path, $validated);
 
         $validated['user_id'] = Auth::id();
 
         $_post = Post::create($validated);
         $_post->tags()->attach($request->tags);
 
-        return redirect()->route('admin.posts.show', $_post);
+        return redirect()->route('admin.posts.index', $_post);
     }
 
     /**
