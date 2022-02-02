@@ -2,6 +2,7 @@
 
 namespace App\Mail;
 
+use App\Models\Message;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
@@ -11,16 +12,16 @@ class ContactFormMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $data;
+    public $message;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct(array $data)
+    public function __construct(Message $message)
     {
-        $this->data = $data;
+        $this->message = $message;
     }
 
     /**
@@ -33,6 +34,9 @@ class ContactFormMail extends Mailable
         return $this
             ->from('example@example.exa')
             ->subject('New Message')
-            ->view('emails.contactForm');
+            ->view('emails.contactForm')
+            ->markdown('emails.mdform')->with([
+                'url' => route('contacts')
+            ]);
     }
 }

@@ -28,8 +28,8 @@ Route::get('categories/{category_id}/posts', 'CategoryController@posts')->name('
 
 // CONTACTS SECTION
 
-Route::get('contacts', 'PageController@contacts')->name('contacts');
-Route::post('contacts', 'PageController@sendForm')->name('contacts.send');
+Route::get('contacts', 'Admin\MessageController@contacts')->name('contacts');
+Route::post('contacts', 'Admin\MessageController@store')->name('contacts.send');
 
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Admin\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
@@ -31,6 +32,9 @@ class PageController extends Controller
             This it to render a mail preview
             return (new ContactFormMail($valData))->render();
         */
+
+       // MessageController->store($valData)
+
 
         Mail::to('admin@stefanonesi.com')
             ->cc($valData['email'])
