@@ -63,6 +63,8 @@ const router = new VueRouter({
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+Vue.component('App', require('./App.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

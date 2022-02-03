@@ -28,14 +28,14 @@
 
 <body>
     <div id="app">
-        @include('partials.guest.header')
-
+        @include('vue.partials.guest.header')
+        @yield('content')
+        <!-- 
         <main class="py-4">
             <div class="container">
 
-                @yield('content')
             </div>
-        </main>
+        </main> -->
     </div>
 </body>
 

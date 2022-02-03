@@ -1,7 +1,8 @@
-@extends('layouts.app')
+@extends('layouts.spa')
 
 
 @section('content')
+<App></App>
 
 <h1>Welcome</h1>
 
