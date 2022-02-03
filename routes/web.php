@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\PostResource;
+use App\Models\Post;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -23,7 +25,7 @@ Route::resource('products', ProductController::class)->only([
     'index', 'show'
 ]);
 
-Route::get('categories/{category_id}/posts', 'CategoryController@posts')->name('categories.posts');
+Route::get('categories/{category_id}/posts', 'Admin\CategoryController@posts')->name('categories.posts');
 
 
 // CONTACTS SECTION
@@ -32,6 +34,13 @@ Route::get('contacts', 'Admin\MessageController@contacts')->name('contacts');
 Route::post('contacts', 'Admin\MessageController@store')->name('contacts.send');
 
 
+Route::get('posts/{post}', function (Post $post) {
+    return new PostResource(Post::find($post));
+});
+
+Route::get('guest/blog', function () {
+    return view('guest.blog.blog');
+})->name('guest.blog');
 
 
 Auth::routes();

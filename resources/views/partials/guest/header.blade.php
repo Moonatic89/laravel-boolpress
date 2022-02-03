@@ -17,6 +17,9 @@
                  <li class="nav-item">
                      <a class="nav-link" href="{{route('admin.home')}}">Admin</a>
                  </li>
+                 <li class="nav-item">
+                     <a class="nav-link" href="{{route('guest.blog')}}">Blog</a>
+                 </li>
              </ul>
 
              <!-- Right Side Of Navbar -->
