@@ -12,13 +12,16 @@
              <!-- Left Side Of Navbar -->
              <ul class="navbar-nav mr-auto">
                  <li class="nav-item">
-                     <router-link class="nav-link" to="/">Home</router-link>
+                     <router-link class="nav-link" :to="/">Home</router-link>
+                     <!-- <a class="nav-link" href="">Homepage</a> -->
                  </li>
                  <li class="nav-item">
-                     <router-link class="nav-link" to="/about">About</router-link>
+                     <router-link class="nav-link" :to="/about">About</router-link>
+                     <!-- <a class="nav-link" href="{{route('admin.home')}}">Admin</a> -->
                  </li>
                  <li class="nav-item">
-                     <router-link class="nav-link" to="/contacts">Contacts</router-link>
+                     <router-link class="nav-link" :to="/contacts">Contacts</router-link>
+                     <!-- <a class="nav-link" href="{{route('admin.home')}}">Admin</a> -->
                  </li>
              </ul>
 

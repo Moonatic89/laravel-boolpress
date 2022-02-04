@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ContactFormMail;
+use App\Models\Message;
+
+
 
 class PageController extends Controller
 {
@@ -33,12 +36,11 @@ class PageController extends Controller
             return (new ContactFormMail($valData))->render();
         */
 
-       // MessageController->store($valData)
+        // MessageController->store($valData)
 
-
-        Mail::to('admin@stefanonesi.com')
-            ->cc($valData['email'])
-            ->send(new ContactFormMail($valData));
-        return redirect()->back()->with('message', 'Message sent successfully');
+        // Mail::to('admin@stefanonesi.com')
+        //     ->cc($valData['email'])
+        //     ->send(new ContactFormMail($valData));
+        // return redirect()->back()->with('message', 'Message sent successfully');
     }
 }

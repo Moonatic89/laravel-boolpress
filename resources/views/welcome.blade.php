@@ -1,9 +1,7 @@
 @extends('layouts.spa')
 
 
-@section('content')
+
+@section('vuecontent')
 <App></App>
-
-<h1>Welcome</h1>
-
-@endsection
+@stop

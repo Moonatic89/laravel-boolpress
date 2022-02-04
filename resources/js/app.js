@@ -15,9 +15,9 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 // ->1 Define Route Pages
-const Home = Vue.component('Home', require('./pages(Home.vue').default);
-const About = Vue.component('About', require('./pages(About.vue').default);
-const Contacts = Vue.component('Contacts', require('./pages(Contacts.vue').default);
+const Home = Vue.component('Home', require('./pages/Home.vue').default);
+const About = Vue.component('About', require('./pages/About.vue').default);
+const Contacts = Vue.component('Contacts', require('./pages/Contacts.vue').default);
 
 // ->2 Define Route name and Components
 
@@ -42,6 +42,7 @@ const routes = [
 // -> Create vue Router instance
 
 const router = new VueRouter({
+    mode: history,
     routes
 })
 
